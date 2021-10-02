@@ -1,4 +1,5 @@
 import React from "react";
+import Htmltojade from "./component/HtmltoJade";
 import GlobalStyles from "./container/material/global-style";
 import HookStyle from "./hook/hook-style";
 
@@ -7,6 +8,7 @@ const App = () => {
     <React.Fragment>
       <HookStyle />
       <GlobalStyles />
+      <Htmltojade/>
     </React.Fragment>
   );
 };
