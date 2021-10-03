@@ -1,24 +1,29 @@
 import { useEffect } from "react";
-import { getEditorConfig } from "../container/editorConfig";
-import html2jade from "html2jade";
+import { getEditorConfig } from "../../container/editorConfig";
+import html2jsx from 'htmltojsx/src/htmltojsx';
 import ace from "brace";
 import "brace/mode/html";
-import "brace/mode/jade";
+import 'brace/mode/jsx';
 import Box from "@mui/material/Box";
 
-const Htmltojade = () => {
+const Htmltojsx = () => {
+
   useEffect(() => {
     let htmlEditor = ace.edit("html-editor");
     htmlEditor.setOptions(getEditorConfig("html"));
 
-    let jadeEditor = ace.edit("jade-editor");
-    jadeEditor.setOptions(getEditorConfig("jade"));
+    let jsxConvertor = new html2jsx({
+        createClass: true,
+        outputClassName: 'AwesomeComponent'
+    });
+
+    let jsxEditor = ace.edit("jsx-editor");
+    jsxEditor.setOptions(getEditorConfig("jsx"));
     // convert event on change
     htmlEditor.getSession().on("change", () => {
       let htmlVal = htmlEditor.getValue();
-      html2jade.convertHtml(htmlVal, {}, (err, jade) => {
-        jadeEditor.setValue(jade, -1);
-      });
+      let convertedValue = jsxConvertor.convert(htmlVal);
+        jsxEditor.setValue(convertedValue, -1);
     });
   }, []);
 
@@ -42,16 +47,16 @@ const Htmltojade = () => {
       </Box>
 
       <Box>
-        <h2 className="right-aligned">Jade</h2>
+        <h2 className="right-aligned">Jsx</h2>
         <div  style={{
             minHeight: "350px",
             width: "43vw",
             backgroundColor: "#fff",
             boxShadow: "0 5px 8px rgb(0 0 0 / 40%)",
-          }} id="jade-editor" className="editor"></div>
+          }} id="jsx-editor" className="editor"></div>
       </Box>
     </Box>
   );
 };
 
-export default Htmltojade;
+export default Htmltojsx;

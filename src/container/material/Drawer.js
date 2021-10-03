@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Global } from "@emotion/react";
 import { styled } from "@mui/material/styles";
@@ -6,9 +6,12 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-
 import Typography from "@mui/material/Typography";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import EditorSelect from "./Select";
+import Htmltojsx from "../../component/covertor-editor/HtmltoJxs";
+
+
 
 const drawerBleeding = 56;
 
@@ -32,13 +35,23 @@ const Puller = styled(Box)(({ theme }) => ({
 }));
 
 function SwipeableEdgeDrawer(props) {
+  const [editor, setEditor] = useState(<Htmltojsx/>);
   const { window } = props;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
 
+  const ChnageEditorHandler = (e) => {
+    setEditor(e.target.value);
+  };
+
+ 
+
+  useEffect(() => {
+  
+  }, [editor]);
   // This is used only for the example
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -51,19 +64,21 @@ function SwipeableEdgeDrawer(props) {
           ".MuiDrawer-root > .MuiPaper-root": {
             height: `calc(50% - ${drawerBleeding}px)`,
             overflow: "visible",
-            width: '25%',
-            textAlign: 'center'
+            width: "25%",
+            textAlign: "center",
           },
         }}
       />
 
-      <Button
-        onClick={toggleDrawer(true)}
-        variant="contained"
-        sx={{ bgcolor: "info.main" }}
-      >
-        Option
-      </Button>
+      <Box sx={{ textAlign: "center" }}>
+        <Button
+          onClick={toggleDrawer(true)}
+          variant="contained"
+          sx={{ bgcolor: "info.main" }}
+        >
+          Option
+        </Button>
+      </Box>
 
       <SwipeableDrawer
         container={container}
@@ -90,10 +105,12 @@ function SwipeableEdgeDrawer(props) {
         >
           <Puller />
           <Typography sx={{ p: 2, color: "text.secondary" }}>
-           Settings
+            Settings
           </Typography>
+          <EditorSelect editor={editor} onChange={ChnageEditorHandler} />
         </StyledBox>
       </SwipeableDrawer>
+      {editor}
     </Root>
   );
 }

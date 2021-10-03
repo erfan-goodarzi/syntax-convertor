@@ -1,7 +1,6 @@
 // import { Button } from "@material-ui/core";
 import { makeStyles } from "@mui/styles";
 
-import SwipeableEdgeDrawer from "../container/material/Drawer";
 
 
 const useStyles = makeStyles({
@@ -24,7 +23,6 @@ export default function HookStyle() {
   return (
     <div className={classes.root}>
       <h4 className={classes.title}>SYNTAX CONVERTOR</h4>
-      <SwipeableEdgeDrawer/>
     </div>
   );
 }
