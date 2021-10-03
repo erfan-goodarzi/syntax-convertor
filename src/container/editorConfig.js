@@ -1,6 +1,5 @@
 const editorConfig = {
   mode: "ace/mode/html",
-  theme: "ace/theme/chrome",
   fontSize: 14,
   tabSize: 2,
   showLineNumbers: false,

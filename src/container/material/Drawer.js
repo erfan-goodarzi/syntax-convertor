@@ -45,6 +45,7 @@ function SwipeableEdgeDrawer(props) {
 
   const ChnageEditorHandler = (e) => {
     setEditor(e.target.value);
+    setOpen(false)
   };
 
  

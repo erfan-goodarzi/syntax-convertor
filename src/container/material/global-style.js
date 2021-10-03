@@ -4,7 +4,8 @@ const useStyles = makeStyles(() =>
   createStyles({
     "@global": {
       body: {
-        background: "#d6cfcb",
+        background: "rgb(237 237 237) !important",
+        
       },
     },
   })
