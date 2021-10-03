@@ -6,15 +6,15 @@ import "brace/mode/html";
 import 'brace/mode/jsx';
 import Box from "@mui/material/Box";
 
-const Htmltojsx = () => {
+const Htmltojsx = (props) => {
 
   useEffect(() => {
     let htmlEditor = ace.edit("html-editor");
     htmlEditor.setOptions(getEditorConfig("html"));
 
     let jsxConvertor = new html2jsx({
-        createClass: true,
-        outputClassName: 'AwesomeComponent'
+        createClass: props.Isclass,
+        outputClassName: props.Classname
     });
 
     let jsxEditor = ace.edit("jsx-editor");

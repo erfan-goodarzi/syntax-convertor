@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState,useEffect } from "react";
 import PropTypes from "prop-types";
 import { Global } from "@emotion/react";
 import { styled } from "@mui/material/styles";
@@ -9,9 +9,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import EditorSelect from "./Select";
-import Htmltojsx from "../../component/covertor-editor/HtmltoJxs";
-
-
+import Htmltojade from "../../component/covertor-editor/HtmltoJade";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 const drawerBleeding = 56;
 
@@ -35,7 +35,7 @@ const Puller = styled(Box)(({ theme }) => ({
 }));
 
 function SwipeableEdgeDrawer(props) {
-  const [editor, setEditor] = useState(<Htmltojsx/>);
+  const [editor, setEditor] = useState(<Htmltojade />);
   const { window } = props;
   const [open, setOpen] = useState(false);
 
@@ -45,14 +45,18 @@ function SwipeableEdgeDrawer(props) {
 
   const ChnageEditorHandler = (e) => {
     setEditor(e.target.value);
-    setOpen(false)
+
+    if (e.target.value.type.name !== "Htmltojsx") {
+      setOpen(false);
+    }
   };
 
- 
-
   useEffect(() => {
+    console.log('nice')
+  }, [])
   
-  }, [editor]);
+
+
   // This is used only for the example
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -109,6 +113,8 @@ function SwipeableEdgeDrawer(props) {
             Settings
           </Typography>
           <EditorSelect editor={editor} onChange={ChnageEditorHandler} />
+        
+          {editor.type.name === "Htmltojsx" ? <FormControlLabel control={<Switch />} label="Class component" /> : null}
         </StyledBox>
       </SwipeableDrawer>
       {editor}
