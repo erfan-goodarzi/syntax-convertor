@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Global } from "@emotion/react";
 import { styled } from "@mui/material/styles";
@@ -10,8 +10,9 @@ import Typography from "@mui/material/Typography";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import EditorSelect from "./Select";
 import Htmltojade from "../../component/covertor-editor/HtmltoJade";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import TextField from "@mui/material/TextField";
 
 const drawerBleeding = 56;
 
@@ -38,11 +39,21 @@ function SwipeableEdgeDrawer(props) {
   const [editor, setEditor] = useState(<Htmltojade />);
   const { window } = props;
   const [open, setOpen] = useState(false);
+  const [IsClass, setIsClass] = useState(false);
+  const [className, setClassName] = useState("AwesomeComponent");
+
+
+  useEffect(() => {
+    console.log('object')
+  }, [IsClass])
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
 
+  const ChangeClassNameHandler = (e) => {
+    setClassName(e.target.value);
+  };
   const ChnageEditorHandler = (e) => {
     setEditor(e.target.value);
 
@@ -51,11 +62,9 @@ function SwipeableEdgeDrawer(props) {
     }
   };
 
-  useEffect(() => {
-    console.log('nice')
-  }, [])
-  
-
+  const enableClassHandler = (e) => {
+    setIsClass(e.target.checked);
+  };
 
   // This is used only for the example
   const container =
@@ -112,9 +121,32 @@ function SwipeableEdgeDrawer(props) {
           <Typography sx={{ p: 2, color: "text.secondary" }}>
             Settings
           </Typography>
-          <EditorSelect editor={editor} onChange={ChnageEditorHandler} />
-        
-          {editor.type.name === "Htmltojsx" ? <FormControlLabel control={<Switch />} label="Class component" /> : null}
+
+          <EditorSelect
+            editor={editor}
+            onChange={ChnageEditorHandler}
+            ClassName={className}
+            enabelClass={IsClass}
+          />
+
+          {editor.type.name === "Htmltojsx" ? (
+            <FormControlLabel
+              control={
+                <Switch checked={IsClass} onChange={enableClassHandler} />
+              }
+              label="Class component"
+            />
+          ) : null}
+          {IsClass ? (
+            <TextField
+              sx={{ mt: 3 }}
+              id="outlined-helperText"
+              label="Class Name"
+              defaultValue="AwesomeComponent"
+              value={className}
+              onChange={ChangeClassNameHandler}
+            />
+          ) : null}
         </StyledBox>
       </SwipeableDrawer>
       {editor}

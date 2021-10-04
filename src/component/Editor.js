@@ -1,6 +1,3 @@
-// import { useState } from "react";
-// import EditorSelect from "../container/material/Select";
-
 import SwipeableEdgeDrawer from '../container/material/Drawer'
 
 const Editor = () => {

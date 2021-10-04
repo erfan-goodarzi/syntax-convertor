@@ -25,7 +25,7 @@ export default function EditorSelect(props) {
           onChange={props.onChange}
         >
           <MenuItem value={<Htmltojade />}>HtmlToJade</MenuItem>
-          <MenuItem value={<Htmltojsx Isclass={props.IsClass} Classname={props.ClassName}/>}>HtmlToJsx</MenuItem>
+          <MenuItem value={<Htmltojsx Isclass={props.enableClass} Classname={props.ClassName}/>}>HtmlToJsx</MenuItem>
           <MenuItem value={<Csstoless/>}>CssToLess</MenuItem>
           <MenuItem value={<Csstostylus/>}>CssToStylus</MenuItem>
         </Select>
